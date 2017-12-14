@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FootballCounter</string>
+
+    <string name="team_a">Team A</string>
+    <string name="team_b">Team B</string>
+    <string name="plus_3_points">+3 points</string>
+    <string name="plus_2_points">+2 points</string>
+    <string name="free_throw">free throw</string>
+    <string name="reset_button">reset</string>
+    <string name="show_evolution">Show evolution</string>
+    <string name="hide_evolution">Hide evolution</string>
+</resources>
