@@ -6,4 +6,7 @@
 
     <color name="team_color">#616161</color>
     <color name="score_color">#000000</color>
+    <color name="main_color">#FF9800</color>
+
+    <color name="black">#000000</color>
 </resources>

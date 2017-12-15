@@ -16,7 +16,6 @@ import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO: add timer
     // TODO: keep track of goals and show the game's evolution:
     //  01:03 - Team A - 3
     //  03:12 - Team B - 3
@@ -35,10 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private List<Integer> scoreListA = new ArrayList<>();
     private List<Integer> scoreListB = new ArrayList<>();
     private SortedMap<String, String> gameEvolution = new TreeMap<>();
-    private boolean evolutionVisible = false;
 
     private Long time = 0L;
+    private Long limit = 5001L; // 45min, 90min, extra time
     Thread t;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
+        Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
+        showEvolutionButton.setEnabled(false);
     }
 
     /**
@@ -64,42 +66,52 @@ public class MainActivity extends AppCompatActivity {
         scoreView.setText(String.valueOf(score));
     }
 
-    public void displayEvolution(boolean visible) {
-        TextView evolutionView = (TextView) findViewById(R.id.game_evolution);
-        if (visible) {
-            StringBuilder evolution = new StringBuilder();
-            for (String time : gameEvolution.keySet()) {
-                evolution.append(time).append("   ").append(gameEvolution.get(time)).append("\n");
-            }
-            evolutionView.setText(evolution.toString());
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scroll_view);
-            scrollView.fullScroll(View.FOCUS_DOWN);
-//            scrollView.scrollTo(0, scrollView.getHeight());
-        } else {
-            evolutionView.setText("");
-        }
-        Button button = (Button) findViewById(R.id.show_hide_button);
-        if (evolutionVisible) {
-            button.setText(R.string.hide_evolution);
-        } else {
-            button.setText(R.string.show_evolution);
-        }
+    public void displayEvolution() {
 
+        // show evolution in dialog
+        StringBuilder evolution = new StringBuilder();
+        for (String time : gameEvolution.keySet()) {
+            evolution.append(time).append("     ").append(gameEvolution.get(time)).append("\n");
+        }
+        Bundle data = new Bundle();
+        data.putString(String.valueOf(R.string.evolution_string), evolution.toString());
+
+        EvolutionDialogFragment dialog = new EvolutionDialogFragment();
+        dialog.setArguments(data);
+        dialog.show(getSupportFragmentManager(), "EvolutionDialogFragment");
     }
 
     public void updateGameEvolution(String team, int points) {
         Date date = new Date();
 
         String timeString = SDF.format(date);
-        gameEvolution.put(timeString, team + " - " + points);
+
+        long millis = time;
+        int seconds = (int) (millis / 1000);
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        String curTime = String.format("%02d : %02d", minutes, seconds);
+
+//        gameEvolution.put(timeString, team + " - " + points);
+        gameEvolution.put(curTime, team + "  -  " + points);
+        Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
+        showEvolutionButton.setEnabled(true);
     }
+
+    public void addGoalA(View view) {}
+    public void addFoulA(View view) {}
+    public void addYellowA(View view) {}
+    public void addRedA(View view) {}
+    public void addGoalB(View view) {}
+    public void addFoulB(View view) {}
+    public void addYellowB(View view) {}
+    public void addRedB(View view) {}
 
     public void addThreePointsA(View view) {
         scoreTeamA = scoreTeamA + THREE_POINTS;
         scoreListA.add(THREE_POINTS);
         displayForTeamA(scoreTeamA);
         updateGameEvolution("Team A", THREE_POINTS);
-        displayEvolution(evolutionVisible);
     }
 
     public void addTwoPointsA(View view) {
@@ -107,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         scoreListA.add(TWO_POINTS);
         displayForTeamA(scoreTeamA);
         updateGameEvolution("Team A", TWO_POINTS);
-        displayEvolution(evolutionVisible);
     }
 
     public void addFreeThrowA(View view) {
@@ -115,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         scoreListA.add(ONE_POINT);
         displayForTeamA(scoreTeamA);
         updateGameEvolution("Team A", ONE_POINT);
-        displayEvolution(evolutionVisible);
     }
 
     public void addThreePointsB(View view) {
@@ -123,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
         scoreListB.add(THREE_POINTS);
         displayForTeamB(scoreTeamB);
         updateGameEvolution("Team B", THREE_POINTS);
-        displayEvolution(evolutionVisible);
     }
 
     public void addTwoPointsB(View view) {
@@ -131,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         scoreListB.add(TWO_POINTS);
         displayForTeamB(scoreTeamB);
         updateGameEvolution("Team B", TWO_POINTS);
-        displayEvolution(evolutionVisible);
     }
 
     public void addFreeThrowB(View view) {
@@ -139,39 +147,41 @@ public class MainActivity extends AppCompatActivity {
         scoreListB.add(ONE_POINT);
         displayForTeamB(scoreTeamB);
         updateGameEvolution("Team B", ONE_POINT);
-        displayEvolution(evolutionVisible);
     }
 
     public void showOrHideEvolution(View view) {
         if (!gameEvolution.isEmpty()) {
-            evolutionVisible = !evolutionVisible;
-            displayEvolution(evolutionVisible);
+            displayEvolution();
         }
-
-
-
-
     }
 
     public void resetScore(View view) {
-        stopTimer(view);
+        ResetDialogFragment dialog = new ResetDialogFragment();
+        dialog.show(getSupportFragmentManager(), "ResetDialogFragment");
+    }
+
+    public void resetConfirmed() {
+        stopTimer();
 
         scoreTeamA = 0;
         scoreTeamB = 0;
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
         gameEvolution.clear();
-        evolutionVisible = false;
-        displayEvolution(false);
+
         scoreListA = new ArrayList<>();
         scoreListB = new ArrayList<>();
+        limit = 5001L;
     }
 
-    public void stopTimer(View view) {
+    public void stopTimer() {
         time = 0L;
-        t.interrupt();
+        if (t != null) {
+            t.interrupt();
+        }
+
         TextView timer = (TextView) findViewById(R.id.timer);
-        timer.setText("00 : 00");
+        timer.setText(R.string.initial_time);
         final Button startButton = (Button) findViewById(R.id.start_button);
         startButton.setVisibility(View.VISIBLE);
     }
@@ -179,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startTimer(View view) {
         final TextView timer = (TextView) findViewById(R.id.timer);
-        final Long startTime = System.currentTimeMillis() + time;
+        final Long startTime = System.currentTimeMillis() - time;
         final Button startButton = (Button) findViewById(R.id.start_button);
         startButton.setVisibility(View.INVISIBLE);
         t = new Thread() {
@@ -188,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try {
 //                    while (!isInterrupted() && time < 2700001) {
-                    while (!isInterrupted() && time < 5001) {
+                    while (!isInterrupted() && time < limit) {
 //                        Thread.sleep(1000);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -196,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                                 long millis = System.currentTimeMillis() - startTime;
                                 int seconds = (int) (millis / 1000);
                                 int minutes = seconds / 60;
-                                seconds     = seconds % 60;
+                                seconds = seconds % 60;
 
                                 time = millis;
                                 String curTime = String.format("%02d : %02d", minutes, seconds);
@@ -213,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
                             startButton.setVisibility(View.VISIBLE);
                             startButton.setText("start 2nd half");
+                            limit = 10001L;
                         }
                     });
 

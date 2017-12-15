@@ -9,4 +9,19 @@
     <string name="reset_button">reset</string>
     <string name="show_evolution">Show evolution</string>
     <string name="hide_evolution">Hide evolution</string>
+    <string name="game_evolution">Game evolution</string>
+    <string name="evolution_string">evolution_string</string>
+
+    <string name="initial_time">00 : 00</string>
+
+    <string name="goal">goal</string>
+    <string name="foul">foul</string>
+    <string name="yellow_card">yellow card</string>
+    <string name="red_card">red card</string>
+
+    <string name="confirm">Yes</string>
+    <string name="cancel">No</string>
+    <string name="close">Close</string>
+    <string name="confirm_message">Are you sure you want to reset the game?</string>
+
 </resources>
