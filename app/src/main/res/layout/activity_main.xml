@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="16dp"
     android:layout_marginBottom="32dp"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
     tools:context="com.example.hannabotar.footballcounter.MainActivity">
 
     <LinearLayout
@@ -43,73 +43,74 @@
                 android:text="0"
                 android:textColor="@color/score_color"
                 android:textSize="@dimen/score_text_size" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp">
+
                 <TextView
-                    android:drawableBottom="@drawable/icon_foul_18_2"
                     android:id="@+id/foul_text_a"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:drawableBottom="@drawable/icon_foul_18_2"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center_horizontal"
                     android:text="0"
-                    android:fontFamily="sans-serif-light"
-                    android:textColor="@color/score_color"
-                    />
+                    android:textColor="@color/score_color" />
+
                 <TextView
-                    android:drawableBottom="@drawable/icon_yellow_card_18_2"
                     android:id="@+id/yellow_text_a"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_weight="1"
+                    android:drawableBottom="@drawable/icon_yellow_card_18_2"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center_horizontal"
                     android:text="0"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="sans-serif-light"
-                    android:textColor="@color/score_color"
-                    />
+                    android:textColor="@color/score_color" />
+
                 <TextView
-                    android:drawableBottom="@drawable/icon_red_card_18"
                     android:id="@+id/red_text_a"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_weight="1"
+                    android:drawableBottom="@drawable/icon_red_card_18"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center_horizontal"
                     android:text="1"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="sans-serif-light"
-                    android:textColor="@color/score_color"
-                    />
+                    android:textColor="@color/score_color" />
             </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addGoalA"
                 android:background="@drawable/goal_state"
+                android:onClick="addGoalA"
                 android:text="@string/goal" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addFoulA"
                 android:background="@drawable/foul_state"
+                android:onClick="addFoulA"
                 android:text="@string/foul" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addYellowA"
                 android:background="@drawable/yellow_state"
+                android:onClick="addYellowA"
                 android:text="@string/yellow_card" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addRedA"
                 android:background="@drawable/red_state"
+                android:onClick="addRedA"
                 android:text="@string/red_card" />
         </LinearLayout>
 
@@ -153,69 +154,69 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp">
+
                 <TextView
-                    android:drawableBottom="@drawable/icon_foul_18_2"
                     android:id="@+id/foul_text_b"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:drawableBottom="@drawable/icon_foul_18_2"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center_horizontal"
                     android:text="0"
-                    android:fontFamily="sans-serif-light"
-                    android:textColor="@color/score_color"
-                    />
+                    android:textColor="@color/score_color" />
+
                 <TextView
-                    android:drawableBottom="@drawable/icon_yellow_card_18_2"
                     android:id="@+id/yellow_text_b"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_weight="1"
+                    android:drawableBottom="@drawable/icon_yellow_card_18_2"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center_horizontal"
                     android:text="0"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="sans-serif-light"
-                    android:textColor="@color/score_color"
-                    />
+                    android:textColor="@color/score_color" />
+
                 <TextView
-                    android:drawableBottom="@drawable/icon_red_card_18"
                     android:id="@+id/red_text_b"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_weight="1"
+                    android:drawableBottom="@drawable/icon_red_card_18"
+                    android:fontFamily="sans-serif-light"
                     android:gravity="center_horizontal"
                     android:text="1"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="sans-serif-light"
-                    android:textColor="@color/score_color"
-                    />
+                    android:textColor="@color/score_color" />
             </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addGoalB"
                 android:background="@drawable/goal_state"
+                android:onClick="addGoalB"
                 android:text="@string/goal" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addFoulB"
                 android:background="@drawable/foul_state"
+                android:onClick="addFoulB"
                 android:text="@string/foul" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addYellowB"
                 android:background="@drawable/yellow_state"
+                android:onClick="addYellowB"
                 android:text="@string/yellow_card" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addRedB"
                 android:background="@drawable/red_state"
+                android:onClick="addRedB"
                 android:text="@string/red_card" />
         </LinearLayout>
 
@@ -224,32 +225,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginBottom="14dp"
-        >
+        android:layout_weight="1">
+
         <Button
             android:id="@+id/start_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="start 1st half"
-            android:onClick="startTimer"/>
+            android:onClick="startTimer"
+            android:text="start 1st half" />
+
         <TextView
             android:id="@+id/timer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center_horizontal"
-            android:text = "00 : 00"
-            android:textSize="@dimen/timer_text_size"/>
+            android:text="00 : 00"
+            android:textSize="@dimen/timer_text_size" />
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="@string/reset_button"
-            android:onClick="resetScore"/>
+            android:onClick="resetScore"
+            android:text="@string/reset_button" />
     </LinearLayout>
-
 
 
     <LinearLayout
