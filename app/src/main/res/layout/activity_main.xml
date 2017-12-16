@@ -38,39 +38,78 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
-                android:text=""
+                android:text="0"
                 android:textColor="@color/score_color"
                 android:textSize="@dimen/score_text_size" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:drawableBottom="@drawable/icon_foul_18_2"
+                    android:id="@+id/foul_text_a"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="0"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/score_color"
+                    />
+                <TextView
+                    android:drawableBottom="@drawable/icon_yellow_card_18_2"
+                    android:id="@+id/yellow_text_a"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="0"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/score_color"
+                    />
+                <TextView
+                    android:drawableBottom="@drawable/icon_red_card_18"
+                    android:id="@+id/red_text_a"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="1"
+                    android:layout_alignParentRight="true"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/score_color"
+                    />
+            </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:onClick="addGoalA"
+                android:background="@drawable/goal_state"
                 android:text="@string/goal" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:onClick="addFoulA"
+                android:background="@drawable/foul_state"
                 android:text="@string/foul" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:onClick="addYellowA"
+                android:background="@drawable/yellow_state"
                 android:text="@string/yellow_card" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:onClick="addRedA"
+                android:background="@drawable/red_state"
                 android:text="@string/red_card" />
         </LinearLayout>
 
@@ -104,39 +143,79 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-light"
-                android:text=""
+                android:text="0"
                 android:textColor="@color/score_color"
                 android:textSize="@dimen/score_text_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:drawableBottom="@drawable/icon_foul_18_2"
+                    android:id="@+id/foul_text_b"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="0"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/score_color"
+                    />
+                <TextView
+                    android:drawableBottom="@drawable/icon_yellow_card_18_2"
+                    android:id="@+id/yellow_text_b"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="0"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/score_color"
+                    />
+                <TextView
+                    android:drawableBottom="@drawable/icon_red_card_18"
+                    android:id="@+id/red_text_b"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="1"
+                    android:layout_alignParentRight="true"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/score_color"
+                    />
+            </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:onClick="addGoalB"
+                android:background="@drawable/goal_state"
                 android:text="@string/goal" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:onClick="addFoulB"
+                android:background="@drawable/foul_state"
                 android:text="@string/foul" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:onClick="addYellowB"
+                android:background="@drawable/yellow_state"
                 android:text="@string/yellow_card" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:onClick="addRedB"
+                android:background="@drawable/red_state"
                 android:text="@string/red_card" />
         </LinearLayout>
 

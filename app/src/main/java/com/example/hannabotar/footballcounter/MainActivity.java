@@ -1,5 +1,7 @@
 package com.example.hannabotar.footballcounter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         displayForTeamB(scoreTeamB);
         Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
         showEvolutionButton.setEnabled(false);
+
+//        Intent intent = new Intent(Intent.ACTION_VIEW);
+//        intent.setDataAndType(Uri.fromFile(new File()))
     }
 
     /**
@@ -98,55 +104,35 @@ public class MainActivity extends AppCompatActivity {
         showEvolutionButton.setEnabled(true);
     }
 
-    public void addGoalA(View view) {}
-    public void addFoulA(View view) {}
-    public void addYellowA(View view) {}
-    public void addRedA(View view) {}
-    public void addGoalB(View view) {}
-    public void addFoulB(View view) {}
-    public void addYellowB(View view) {}
-    public void addRedB(View view) {}
-
-    public void addThreePointsA(View view) {
-        scoreTeamA = scoreTeamA + THREE_POINTS;
-        scoreListA.add(THREE_POINTS);
-        displayForTeamA(scoreTeamA);
-        updateGameEvolution("Team A", THREE_POINTS);
-    }
-
-    public void addTwoPointsA(View view) {
-        scoreTeamA = scoreTeamA + TWO_POINTS;
-        scoreListA.add(TWO_POINTS);
-        displayForTeamA(scoreTeamA);
-        updateGameEvolution("Team A", TWO_POINTS);
-    }
-
-    public void addFreeThrowA(View view) {
+    public void addGoalA(View view) {
         scoreTeamA = scoreTeamA + ONE_POINT;
         scoreListA.add(ONE_POINT);
         displayForTeamA(scoreTeamA);
         updateGameEvolution("Team A", ONE_POINT);
     }
-
-    public void addThreePointsB(View view) {
-        scoreTeamB = scoreTeamB + THREE_POINTS;
-        scoreListB.add(THREE_POINTS);
-        displayForTeamB(scoreTeamB);
-        updateGameEvolution("Team B", THREE_POINTS);
+    public void addFoulA(View view) {
+        System.out.println("foul_a pressed");
     }
-
-    public void addTwoPointsB(View view) {
-        scoreTeamB = scoreTeamB + TWO_POINTS;
-        scoreListB.add(TWO_POINTS);
-        displayForTeamB(scoreTeamB);
-        updateGameEvolution("Team B", TWO_POINTS);
+    public void addYellowA(View view) {
+        System.out.println("yellow_a pressed");
     }
-
-    public void addFreeThrowB(View view) {
+    public void addRedA(View view) {
+        System.out.println("red_a pressed");
+    }
+    public void addGoalB(View view) {
         scoreTeamB = scoreTeamB + ONE_POINT;
         scoreListB.add(ONE_POINT);
         displayForTeamB(scoreTeamB);
         updateGameEvolution("Team B", ONE_POINT);
+    }
+    public void addFoulB(View view) {
+        System.out.println("foul_b pressed");
+    }
+    public void addYellowB(View view) {
+        System.out.println("yellow_b pressed");
+    }
+    public void addRedB(View view) {
+        System.out.println("red_b pressed");
     }
 
     public void showOrHideEvolution(View view) {
