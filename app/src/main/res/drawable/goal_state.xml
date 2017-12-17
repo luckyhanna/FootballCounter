@@ -3,7 +3,7 @@
     <item android:state_pressed="true" >
         <shape>
             <solid
-                android:color="#1D8311" />
+                android:color="#4ec640" />
             <corners
                 android:radius="2dp"/>
             <padding
@@ -20,10 +20,11 @@
     <item>
         <shape>
             <gradient
-                android:startColor="#4ec640"
-                android:centerColor="#1D8311"
-                android:endColor="#4ec640"
-                android:angle="270" />
+                android:startColor="#1D8311"
+                android:centerColor="#4ec640"
+                android:endColor="#1D8311"
+                android:angle="270"
+                android:gradientRadius="30dp"/>
             <corners
                 android:radius="2dp"/>
             <padding

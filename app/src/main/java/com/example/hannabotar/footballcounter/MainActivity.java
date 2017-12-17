@@ -32,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
     public static final SimpleDateFormat SDF = new SimpleDateFormat("HH:mm:ss");
 
     private int scoreTeamA; // no need to initialize
+    private int foulTeamA;
+    private int yellowTeamA;
+    private int redTeamA;
     private int scoreTeamB;
+    private int foulTeamB;
+    private int yellowTeamB;
+    private int redTeamB;
+
 
     private List<Integer> scoreListA = new ArrayList<>();
     private List<Integer> scoreListB = new ArrayList<>();
@@ -48,7 +55,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         displayForTeamA(scoreTeamA);
+        displayFoulsForTeamA(foulTeamA);
+        displayYellowCardsForTeamA(yellowTeamA);
+        displayRedCardsForTeamA(redTeamA);
+
         displayForTeamB(scoreTeamB);
+        displayFoulsForTeamB(foulTeamB);
+        displayYellowCardsForTeamB(yellowTeamB);
+        displayRedCardsForTeamB(redTeamB);
+
         Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
         showEvolutionButton.setEnabled(false);
 
@@ -63,6 +78,18 @@ public class MainActivity extends AppCompatActivity {
         TextView scoreView = (TextView) findViewById(R.id.team_a_score);
         scoreView.setText(String.valueOf(score));
     }
+    public void displayFoulsForTeamA(int fouls) {
+        TextView foulView = (TextView) findViewById(R.id.foul_text_a);
+        foulView.setText(String.valueOf(fouls));
+    }
+    public void displayYellowCardsForTeamA(int yellowCards) {
+        TextView yellowCardView = (TextView) findViewById(R.id.yellow_text_a);
+        yellowCardView.setText(String.valueOf(yellowCards));
+    }
+    public void displayRedCardsForTeamA(int redCards) {
+        TextView redCardView = (TextView) findViewById(R.id.red_text_a);
+        redCardView.setText(String.valueOf(redCards));
+    }
 
     /**
      * Displays the given score for Team B.
@@ -70,6 +97,18 @@ public class MainActivity extends AppCompatActivity {
     public void displayForTeamB(int score) {
         TextView scoreView = (TextView) findViewById(R.id.team_b_score);
         scoreView.setText(String.valueOf(score));
+    }
+    public void displayFoulsForTeamB(int fouls) {
+        TextView foulView = (TextView) findViewById(R.id.foul_text_b);
+        foulView.setText(String.valueOf(fouls));
+    }
+    public void displayYellowCardsForTeamB(int yellowCards) {
+        TextView yellowCardView = (TextView) findViewById(R.id.yellow_text_b);
+        yellowCardView.setText(String.valueOf(yellowCards));
+    }
+    public void displayRedCardsForTeamB(int redCards) {
+        TextView redCardView = (TextView) findViewById(R.id.red_text_b);
+        redCardView.setText(String.valueOf(redCards));
     }
 
     public void displayEvolution() {
@@ -111,13 +150,17 @@ public class MainActivity extends AppCompatActivity {
         updateGameEvolution("Team A", ONE_POINT);
     }
     public void addFoulA(View view) {
-        System.out.println("foul_a pressed");
+        foulTeamA = foulTeamA + ONE_POINT;
+        displayFoulsForTeamA(foulTeamA);
+//        updateGameEvolution("Team A", ONE_POINT);
     }
     public void addYellowA(View view) {
-        System.out.println("yellow_a pressed");
+        yellowTeamA = yellowTeamA + ONE_POINT;
+        displayYellowCardsForTeamA(yellowTeamA);
     }
     public void addRedA(View view) {
-        System.out.println("red_a pressed");
+        redTeamA = redTeamA + ONE_POINT;
+        displayRedCardsForTeamA(redTeamA);
     }
     public void addGoalB(View view) {
         scoreTeamB = scoreTeamB + ONE_POINT;
@@ -126,13 +169,16 @@ public class MainActivity extends AppCompatActivity {
         updateGameEvolution("Team B", ONE_POINT);
     }
     public void addFoulB(View view) {
-        System.out.println("foul_b pressed");
+        foulTeamB = foulTeamB + ONE_POINT;
+        displayFoulsForTeamB(foulTeamB);
     }
     public void addYellowB(View view) {
-        System.out.println("yellow_b pressed");
+        yellowTeamB = yellowTeamB + ONE_POINT;
+        displayYellowCardsForTeamB(yellowTeamB);
     }
     public void addRedB(View view) {
-        System.out.println("red_b pressed");
+        redTeamB = redTeamB + ONE_POINT;
+        displayRedCardsForTeamB(redTeamB);
     }
 
     public void showOrHideEvolution(View view) {
@@ -153,6 +199,22 @@ public class MainActivity extends AppCompatActivity {
         scoreTeamB = 0;
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
+
+        foulTeamA = 0;
+        foulTeamB = 0;
+        displayFoulsForTeamA(foulTeamA);
+        displayFoulsForTeamB(foulTeamB);
+
+        yellowTeamA = 0;
+        yellowTeamB = 0;
+        displayYellowCardsForTeamA(yellowTeamA);
+        displayYellowCardsForTeamB(yellowTeamB);
+
+        redTeamA = 0;
+        redTeamB = 0;
+        displayRedCardsForTeamA(redTeamA);
+        displayRedCardsForTeamB(redTeamB);
+
         gameEvolution.clear();
 
         scoreListA = new ArrayList<>();
