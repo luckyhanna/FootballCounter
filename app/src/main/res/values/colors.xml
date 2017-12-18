@@ -9,4 +9,24 @@
     <color name="main_color">#FF9800</color>
 
     <color name="black">#000000</color>
+
+    <color name="goal_color_main">#c1c0c0</color>
+    <color name="goal_color_light">#FFFFFF</color>
+    <color name="goal_color_transparent">#70c1c0c0</color>
+
+    <color name="foul_color_main">#CF8003</color>
+    <color name="foul_color_light">#f39c12</color>
+    <color name="foul_color_transparent">#70CF8003</color>
+
+    <color name="yellow_color_main">#E1E112</color>
+    <color name="yellow_color_light">#FFFF00</color>
+    <color name="yellow_color_transparent">#70E1E112</color>
+
+    <color name="red_color_main">#C82211</color>
+    <color name="red_color_light">#e74c3c</color>
+    <color name="red_color_transparent">#70C82211</color>
+
+
+
+
 </resources>

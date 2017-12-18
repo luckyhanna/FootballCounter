@@ -3,7 +3,7 @@
     <item android:state_enabled="false" >
         <shape>
             <solid
-                android:color="#70c1c0c0" />
+                android:color="@color/goal_color_transparent" />
             <corners
                 android:radius="2dp"/>
             <padding
@@ -20,7 +20,7 @@
     <item android:state_pressed="true" >
         <shape>
             <solid
-                android:color="#FFFFFF" />
+                android:color="@color/goal_color_light" />
             <corners
                 android:radius="2dp"/>
             <padding
@@ -37,9 +37,9 @@
     <item>
         <shape>
             <gradient
-                android:startColor="#c1c0c0"
-                android:centerColor="#FFFFFF"
-                android:endColor="#c1c0c0"
+                android:startColor="@color/goal_color_main"
+                android:centerColor="@color/goal_color_light"
+                android:endColor="@color/goal_color_main"
                 android:angle="270" />
             <corners
                 android:radius="2dp"/>

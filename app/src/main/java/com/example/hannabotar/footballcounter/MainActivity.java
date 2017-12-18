@@ -1,5 +1,6 @@
 package com.example.hannabotar.footballcounter;
 
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,18 +16,21 @@ import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO: keep track of goals and show the game's evolution:
-    //  01:03 - Team A - 3
-    //  03:12 - Team B - 3
-    //  03:43 - Team A - 2
-    //  04:13 - Team A - 2
-
-    public static final int THREE_POINTS = 3;
-    public static final int TWO_POINTS = 2;
     public static final int ONE_POINT = 1;
     public static final String FOUL = "Foul";
     public static final String YELLOW_CARD = "Yellow card";
     public static final String RED_CARD = "Red card";
+    public static final String START_SECOND_HALF = "start 2nd half";
+    public static final String START_FIRST_HALF = "start 1st half";
+
+    public static final Long FIRST_HALF_END = 15001L; // 45 min = 2700001L;
+    public static final Long SECOND_HALF_END = 30001L; // 90 min = 5400001L;
+
+    public static final String GOAL_COLOR_MAIN = "#c1c0c0";
+    public static final String GOAL_COLOR_DARK = "#616161";
+    public static final String FOUL_COLOR_MAIN = "#CF8003";
+    public static final String YELLOW_COLOR_MAIN = "#E1E112";
+    public static final String RED_COLOR_MAIN = "#C82211";
 
     public static final SimpleDateFormat SDF = new SimpleDateFormat("HH:mm:ss");
 
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private SortedMap<String, String> gameEvolution = new TreeMap<>();
 
     private Long time = 0L;
-    private Long limit = 15001L; // 45min + stoppage/injury time, 90min + stoppage/injury time, 2x15min extra time, penalty
+    private Long limit = FIRST_HALF_END; // 45min + stoppage/injury time, 90min + stoppage/injury time, 2x15min extra time, penalty
     Thread t;
 
 
@@ -142,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
         for (String time : gameEvolution.keySet()) {
 //            evolution.append(time).append("     ").append(gameEvolution.get(time)).append("\n");
 //            evolution.append("<li>").append(time).append("<b>").append(gameEvolution.get(time)).append("</b>").append("</li>");
-            evolution.append("<div>").append(time).append(" - <b><font color='#f39c12'>").append(gameEvolution.get(time)).append("</font></b>").append("</div>");
+//            evolution.append("<div>").append(time).append(" - <b><font color='#f39c12'>").append(gameEvolution.get(time)).append("</font></b>").append("</div>");
+            evolution.append("<div>").append(time).append(" - ").append(gameEvolution.get(time)).append("</div>");
         }
         evolution.append("</div>");
         Bundle data = new Bundle();
@@ -153,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show(getSupportFragmentManager(), "EvolutionDialogFragment");
     }
 
-    public void updateGameEvolution(String team, String detail) {
+    public void updateGameEvolution(String team, String detail, String color) {
         Date date = new Date();
 
         String timeString = SDF.format(date);
@@ -164,7 +169,10 @@ public class MainActivity extends AppCompatActivity {
         seconds = seconds % 60;
         String curTime = String.format("%02d : %02d", minutes, seconds);
 
-        String value = team + "  -  " + detail;
+//        String value = team + "  -  " + detail;
+
+        String value = "<b>" + team + "</b>" + " - " + "<font color='" + color + "'>" + detail + "</font>";
+
 
         gameEvolution.put(curTime, value);
         Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
@@ -175,43 +183,43 @@ public class MainActivity extends AppCompatActivity {
         scoreTeamA = scoreTeamA + ONE_POINT;
         scoreListA.add(ONE_POINT);
         displayForTeamA(scoreTeamA);
-        updateGameEvolution("Team A", String.valueOf(ONE_POINT));
+        updateGameEvolution("Team A", "Goal (" + scoreTeamA + ")", GOAL_COLOR_DARK);
     }
     public void addFoulA(View view) {
         foulTeamA = foulTeamA + ONE_POINT;
         displayFoulsForTeamA(foulTeamA);
-        updateGameEvolution("Team A", FOUL);
+        updateGameEvolution("Team A", FOUL, FOUL_COLOR_MAIN);
     }
     public void addYellowA(View view) {
         yellowTeamA = yellowTeamA + ONE_POINT;
         displayYellowCardsForTeamA(yellowTeamA);
-        updateGameEvolution("Team A", YELLOW_CARD);
+        updateGameEvolution("Team A", YELLOW_CARD, YELLOW_COLOR_MAIN);
     }
     public void addRedA(View view) {
         redTeamA = redTeamA + ONE_POINT;
         displayRedCardsForTeamA(redTeamA);
-        updateGameEvolution("Team A", RED_CARD);
+        updateGameEvolution("Team A", RED_CARD, RED_COLOR_MAIN);
     }
     public void addGoalB(View view) {
         scoreTeamB = scoreTeamB + ONE_POINT;
         scoreListB.add(ONE_POINT);
         displayForTeamB(scoreTeamB);
-        updateGameEvolution("Team B", String.valueOf(ONE_POINT));
+        updateGameEvolution("Team B", "Goal (" + scoreTeamB + ")", GOAL_COLOR_DARK);
     }
     public void addFoulB(View view) {
         foulTeamB = foulTeamB + ONE_POINT;
         displayFoulsForTeamB(foulTeamB);
-        updateGameEvolution("Team B", FOUL);
+        updateGameEvolution("Team B", FOUL, FOUL_COLOR_MAIN);
     }
     public void addYellowB(View view) {
         yellowTeamB = yellowTeamB + ONE_POINT;
         displayYellowCardsForTeamB(yellowTeamB);
-        updateGameEvolution("Team B", YELLOW_CARD);
+        updateGameEvolution("Team B", YELLOW_CARD, YELLOW_COLOR_MAIN);
     }
     public void addRedB(View view) {
         redTeamB = redTeamB + ONE_POINT;
         displayRedCardsForTeamB(redTeamB);
-        updateGameEvolution("Team B", RED_CARD);
+        updateGameEvolution("Team B", RED_CARD, RED_COLOR_MAIN);
     }
 
     public void showOrHideEvolution(View view) {
@@ -249,10 +257,12 @@ public class MainActivity extends AppCompatActivity {
         displayRedCardsForTeamB(redTeamB);
 
         gameEvolution.clear();
+        Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
+        showEvolutionButton.setEnabled(false);
 
         scoreListA = new ArrayList<>();
         scoreListB = new ArrayList<>();
-        limit = 15001L;
+        limit = FIRST_HALF_END;
     }
 
     public void stopTimer() {
@@ -265,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
         timer.setText(R.string.initial_time);
         final Button startButton = (Button) findViewById(R.id.start_button);
         startButton.setVisibility(View.VISIBLE);
+        startButton.setText(START_FIRST_HALF);
 
         enableActionButtons(false);
     }
@@ -308,9 +319,12 @@ public class MainActivity extends AppCompatActivity {
                             t.interrupt();
                             enableActionButtons(false);
 
-                            startButton.setVisibility(View.VISIBLE);
-                            startButton.setText("start 2nd half");
-                            limit = 30001L;
+                            if (!startButton.getText().equals(START_SECOND_HALF)) {
+                                startButton.setVisibility(View.VISIBLE);
+                                startButton.setText(START_SECOND_HALF);
+                            }
+
+                            limit = SECOND_HALF_END;
                         }
                     });
 
