@@ -96,6 +96,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/goal_button_a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gate_state"
@@ -104,6 +105,7 @@
                     android:text="@string/goal" />
 
                 <Button
+                    android:id="@+id/foul_button_a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/foul_state"
@@ -112,6 +114,7 @@
                     android:text="@string/foul" />
 
                 <Button
+                    android:id="@+id/yellow_button_a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/yellow_state"
@@ -120,6 +123,7 @@
                     android:text="@string/yellow_card" />
 
                 <Button
+                    android:id="@+id/red_button_a"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_state"
@@ -206,6 +210,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/goal_button_b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gate_state"
@@ -214,6 +219,7 @@
                     android:text="@string/goal" />
 
                 <Button
+                    android:id="@+id/foul_button_b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/foul_state"
@@ -222,6 +228,7 @@
                     android:text="@string/foul" />
 
                 <Button
+                    android:id="@+id/yellow_button_b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/yellow_state"
@@ -230,6 +237,7 @@
                     android:text="@string/yellow_card" />
 
                 <Button
+                    android:id="@+id/red_button_b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/red_state"

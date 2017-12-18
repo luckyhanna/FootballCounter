@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -51,7 +52,8 @@ public class EvolutionDialogFragment extends DialogFragment {
         String textToDisplay = (String) getArguments().get(String.valueOf(R.string.evolution_string));
         View view = inflater.inflate(R.layout.dialog_evolution, null);
         TextView evolutionView = view.findViewById(R.id.game_evolution);
-        evolutionView.setText(textToDisplay);
+//        evolutionView.setText(textToDisplay);
+        evolutionView.setText(Html.fromHtml(textToDisplay));
 
         builder
                 .setView(view)
