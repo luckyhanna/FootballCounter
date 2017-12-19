@@ -52,7 +52,6 @@ public class EvolutionDialogFragment extends DialogFragment {
         String textToDisplay = (String) getArguments().get(String.valueOf(R.string.evolution_string));
         View view = inflater.inflate(R.layout.dialog_evolution, null);
         TextView evolutionView = view.findViewById(R.id.game_evolution);
-//        evolutionView.setText(textToDisplay);
         evolutionView.setText(Html.fromHtml(textToDisplay));
 
         builder

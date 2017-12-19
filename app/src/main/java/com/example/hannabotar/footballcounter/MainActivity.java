@@ -1,6 +1,5 @@
 package com.example.hannabotar.footballcounter;
 
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -142,11 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
         // show evolution in dialog
         StringBuilder evolution = new StringBuilder();
-        evolution.append("<div>");
-        for (String time : gameEvolution.keySet()) {
-//            evolution.append(time).append("     ").append(gameEvolution.get(time)).append("\n");
-//            evolution.append("<li>").append(time).append("<b>").append(gameEvolution.get(time)).append("</b>").append("</li>");
-//            evolution.append("<div>").append(time).append(" - <b><font color='#f39c12'>").append(gameEvolution.get(time)).append("</font></b>").append("</div>");
+        evolution.append("<div>");for (String time : gameEvolution.keySet()) {
             evolution.append("<div>").append(time).append(" - ").append(gameEvolution.get(time)).append("</div>");
         }
         evolution.append("</div>");
@@ -169,10 +164,7 @@ public class MainActivity extends AppCompatActivity {
         seconds = seconds % 60;
         String curTime = String.format("%02d : %02d", minutes, seconds);
 
-//        String value = team + "  -  " + detail;
-
         String value = "<b>" + team + "</b>" + " - " + "<font color='" + color + "'>" + detail + "</font>";
-
 
         gameEvolution.put(curTime, value);
         Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
@@ -296,7 +288,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
 //                    while (!isInterrupted() && time < 2700001) {
                     while (!isInterrupted() && time < limit) {
-//                        Thread.sleep(1000);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
