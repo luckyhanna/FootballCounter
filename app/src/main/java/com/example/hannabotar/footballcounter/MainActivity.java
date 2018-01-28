@@ -1,10 +1,15 @@
 package com.example.hannabotar.footballcounter;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +36,24 @@ public class MainActivity extends AppCompatActivity {
     public static final String YELLOW_COLOR_MAIN = "#E1E112";
     public static final String RED_COLOR_MAIN = "#C82211";
 
+    public static final String SCORE_A = "score_a";
+    public static final String FOUL_A = "foul_a";
+    public static final String YELLOW_A = "yellow_a";
+    public static final String RED_A = "red_a";
+    public static final String SCORE_B = "score_b";
+    public static final String FOUL_B = "foul_b";
+    public static final String YELLOW_B = "yellow_b";
+    public static final String RED_B = "red_b";
+
+    public static final String START_BUTTON_TEXT = "start_button_text";
+
+    public static final String GAME_EVOLUTION = "game_evolution";
+    public static final String SHOW_MENU = "show_menu";
+
+    public static final String RESTORE_TIMER = "restore_timer";
+    public static final String TIME = "time";
+    public static final String LIMIT = "limit";
+
     public static final SimpleDateFormat SDF = new SimpleDateFormat("HH:mm:ss");
 
     private int scoreTeamA; // no need to initialize
@@ -51,11 +74,37 @@ public class MainActivity extends AppCompatActivity {
     private Long limit = FIRST_HALF_END; // 45min + stoppage/injury time, 90min + stoppage/injury time, 2x15min extra time, penalty
     Thread t;
 
+    TextView scoreViewA;
+    TextView foulViewA;
+    TextView yellowCardViewA;
+    TextView redCardViewA;
+    TextView scoreViewB;
+    TextView foulViewB;
+    TextView yellowCardViewB;
+    TextView redCardViewB;
+
+    boolean showMenu = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        scoreViewA = (TextView) findViewById(R.id.team_a_score);
+        foulViewA = (TextView) findViewById(R.id.foul_text_a);
+        yellowCardViewA = (TextView) findViewById(R.id.yellow_text_a);
+        redCardViewA = (TextView) findViewById(R.id.red_text_a);
+
+        scoreViewB = (TextView) findViewById(R.id.team_b_score);
+        foulViewB = (TextView) findViewById(R.id.foul_text_b);
+        yellowCardViewB = (TextView) findViewById(R.id.yellow_text_b);
+        redCardViewB = (TextView) findViewById(R.id.red_text_b);
+
         displayForTeamA(scoreTeamA);
         displayFoulsForTeamA(foulTeamA);
         displayYellowCardsForTeamA(yellowTeamA);
@@ -67,9 +116,103 @@ public class MainActivity extends AppCompatActivity {
         displayRedCardsForTeamB(redTeamB);
 
         enableActionButtons(false);
+    }
 
-        Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
-        showEvolutionButton.setEnabled(false);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if (!showMenu) {
+            Toast showEvolutionToast = Toast.makeText(this, "No evolution to show", Toast.LENGTH_SHORT);
+            showEvolutionToast.show();
+            closeOptionsMenu();
+            return true;
+        }
+        return super.onMenuOpened(featureId, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_show_evolution) {
+            showOrHideEvolution(null);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SCORE_A, scoreTeamA);
+        outState.putInt(FOUL_A, foulTeamA);
+        outState.putInt(YELLOW_A, yellowTeamA);
+        outState.putInt(RED_A, redTeamA);
+        outState.putInt(SCORE_B, scoreTeamB);
+        outState.putInt(FOUL_B, foulTeamB);
+        outState.putInt(YELLOW_B, yellowTeamB);
+        outState.putInt(RED_B, redTeamB);
+
+        Button startButton = (Button) findViewById(R.id.start_button);
+        outState.putString(START_BUTTON_TEXT, startButton.getText().toString());
+
+        outState.putSerializable(GAME_EVOLUTION, (TreeMap) gameEvolution);
+        outState.putBoolean(SHOW_MENU, showMenu);
+
+        if (t != null && t.isAlive()) {
+            outState.putBoolean(RESTORE_TIMER, true);
+        } else {
+            outState.putBoolean(RESTORE_TIMER, false);
+        }
+
+        outState.putLong(TIME, time);
+        outState.putLong(LIMIT, limit);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        scoreTeamA = savedInstanceState.getInt(SCORE_A);
+        foulTeamA = savedInstanceState.getInt(FOUL_A);
+        yellowTeamA = savedInstanceState.getInt(YELLOW_A);
+        redTeamA = savedInstanceState.getInt(RED_A);
+        scoreTeamB = savedInstanceState.getInt(SCORE_B);
+        foulTeamB = savedInstanceState.getInt(FOUL_B);
+        yellowTeamB = savedInstanceState.getInt(YELLOW_B);
+        redTeamB = savedInstanceState.getInt(RED_B);
+
+        displayForTeamA(scoreTeamA);
+        displayFoulsForTeamA(foulTeamA);
+        displayYellowCardsForTeamA(yellowTeamA);
+        displayRedCardsForTeamA(redTeamA);
+
+        displayForTeamB(scoreTeamB);
+        displayFoulsForTeamB(foulTeamB);
+        displayYellowCardsForTeamB(yellowTeamB);
+        displayRedCardsForTeamB(redTeamB);
+
+        Button startButton = (Button) findViewById(R.id.start_button);
+        startButton.setText(savedInstanceState.getString(START_BUTTON_TEXT));
+
+        gameEvolution = (TreeMap) savedInstanceState.getSerializable(GAME_EVOLUTION);
+        showMenu = savedInstanceState.getBoolean(SHOW_MENU);
+
+        time = savedInstanceState.getLong(TIME);
+        limit = savedInstanceState.getLong(LIMIT);
+        boolean restoreTimer = savedInstanceState.getBoolean(RESTORE_TIMER);
+        if (restoreTimer) {
+            startTimer(null);
+        }
+
     }
 
     /**
@@ -101,40 +244,32 @@ public class MainActivity extends AppCompatActivity {
      * Displays the given score for Team A.
      */
     public void displayForTeamA(int score) {
-        TextView scoreView = (TextView) findViewById(R.id.team_a_score);
-        scoreView.setText(String.valueOf(score));
+        scoreViewA.setText(String.valueOf(score));
     }
     public void displayFoulsForTeamA(int fouls) {
-        TextView foulView = (TextView) findViewById(R.id.foul_text_a);
-        foulView.setText(String.valueOf(fouls));
+        foulViewA.setText(String.valueOf(fouls));
     }
     public void displayYellowCardsForTeamA(int yellowCards) {
-        TextView yellowCardView = (TextView) findViewById(R.id.yellow_text_a);
-        yellowCardView.setText(String.valueOf(yellowCards));
+        yellowCardViewA.setText(String.valueOf(yellowCards));
     }
     public void displayRedCardsForTeamA(int redCards) {
-        TextView redCardView = (TextView) findViewById(R.id.red_text_a);
-        redCardView.setText(String.valueOf(redCards));
+        redCardViewA.setText(String.valueOf(redCards));
     }
 
     /**
      * Displays the given score for Team B.
      */
     public void displayForTeamB(int score) {
-        TextView scoreView = (TextView) findViewById(R.id.team_b_score);
-        scoreView.setText(String.valueOf(score));
+        scoreViewB.setText(String.valueOf(score));
     }
     public void displayFoulsForTeamB(int fouls) {
-        TextView foulView = (TextView) findViewById(R.id.foul_text_b);
-        foulView.setText(String.valueOf(fouls));
+        foulViewB.setText(String.valueOf(fouls));
     }
     public void displayYellowCardsForTeamB(int yellowCards) {
-        TextView yellowCardView = (TextView) findViewById(R.id.yellow_text_b);
-        yellowCardView.setText(String.valueOf(yellowCards));
+        yellowCardViewB.setText(String.valueOf(yellowCards));
     }
     public void displayRedCardsForTeamB(int redCards) {
-        TextView redCardView = (TextView) findViewById(R.id.red_text_b);
-        redCardView.setText(String.valueOf(redCards));
+        redCardViewB.setText(String.valueOf(redCards));
     }
 
     public void displayEvolution() {
@@ -154,10 +289,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateGameEvolution(String team, String detail, String color) {
-        Date date = new Date();
-
-        String timeString = SDF.format(date);
-
         long millis = time;
         int seconds = (int) (millis / 1000);
         int minutes = seconds / 60;
@@ -167,8 +298,7 @@ public class MainActivity extends AppCompatActivity {
         String value = "<b>" + team + "</b>" + " - " + "<font color='" + color + "'>" + detail + "</font>";
 
         gameEvolution.put(curTime, value);
-        Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
-        showEvolutionButton.setEnabled(true);
+        showMenu = true;
     }
 
     public void addGoalA(View view) {
@@ -249,8 +379,7 @@ public class MainActivity extends AppCompatActivity {
         displayRedCardsForTeamB(redTeamB);
 
         gameEvolution.clear();
-        Button showEvolutionButton = (Button) findViewById(R.id.show_hide_button);
-        showEvolutionButton.setEnabled(false);
+        showMenu = false;
 
         scoreListA = new ArrayList<>();
         scoreListB = new ArrayList<>();

@@ -18,30 +18,6 @@ import android.widget.TextView;
 
 public class EvolutionDialogFragment extends DialogFragment {
 
-    /*@Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        final View dialogView = inflater.inflate(R.layout.dialog_evolution, container, false);//Inflate Layout
-        final View dialogView = inflater.inflate(R.layout.dialog_evolution, null);//Inflate Layout
-        TextView evolutionView = (TextView) dialogView.findViewById(R.id.game_evolution);
-
-        // Get Argument that passed from activity in "evolution_string" key value
-        String dataString = (String) getArguments().get(String.valueOf(R.string.evolution_string));
-        evolutionView.setText(dataString);
-
-        // Set action for cancel button
-        Button cancelButton = dialogView.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EvolutionDialogFragment.this.getDialog().cancel();
-            }
-        });
-
-        EvolutionDialogFragment.this.getDialog().setTitle(R.string.game_evolution);
-        return dialogView;
-    }*/
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
