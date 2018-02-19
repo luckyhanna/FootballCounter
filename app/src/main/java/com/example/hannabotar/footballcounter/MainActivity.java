@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     private int yellowTeamB;
     private int redTeamB;
 
+    private static final int DEFAULT_SCORE = 0;
+
 
     private List<Integer> scoreListA = new ArrayList<>();
     private List<Integer> scoreListB = new ArrayList<>();
@@ -300,44 +302,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addGoalA(View view) {
-        scoreTeamA = scoreTeamA + ONE_POINT;
+        scoreTeamA += ONE_POINT;
         scoreListA.add(ONE_POINT);
         displayForTeamA(scoreTeamA);
         updateGameEvolution("Team A", "Goal (" + scoreTeamA + ")", GOAL_COLOR_DARK);
     }
     public void addFoulA(View view) {
-        foulTeamA = foulTeamA + ONE_POINT;
+        foulTeamA += ONE_POINT;
         displayFoulsForTeamA(foulTeamA);
         updateGameEvolution("Team A", FOUL, FOUL_COLOR_MAIN);
     }
     public void addYellowA(View view) {
-        yellowTeamA = yellowTeamA + ONE_POINT;
+        yellowTeamA += ONE_POINT;
         displayYellowCardsForTeamA(yellowTeamA);
         updateGameEvolution("Team A", YELLOW_CARD, YELLOW_COLOR_MAIN);
     }
     public void addRedA(View view) {
-        redTeamA = redTeamA + ONE_POINT;
+        redTeamA += ONE_POINT;
         displayRedCardsForTeamA(redTeamA);
         updateGameEvolution("Team A", RED_CARD, RED_COLOR_MAIN);
     }
     public void addGoalB(View view) {
-        scoreTeamB = scoreTeamB + ONE_POINT;
+        scoreTeamB += ONE_POINT;
         scoreListB.add(ONE_POINT);
         displayForTeamB(scoreTeamB);
         updateGameEvolution("Team B", "Goal (" + scoreTeamB + ")", GOAL_COLOR_DARK);
     }
     public void addFoulB(View view) {
-        foulTeamB = foulTeamB + ONE_POINT;
+        foulTeamB += ONE_POINT;
         displayFoulsForTeamB(foulTeamB);
         updateGameEvolution("Team B", FOUL, FOUL_COLOR_MAIN);
     }
     public void addYellowB(View view) {
-        yellowTeamB = yellowTeamB + ONE_POINT;
+        yellowTeamB += ONE_POINT;
         displayYellowCardsForTeamB(yellowTeamB);
         updateGameEvolution("Team B", YELLOW_CARD, YELLOW_COLOR_MAIN);
     }
     public void addRedB(View view) {
-        redTeamB = redTeamB + ONE_POINT;
+        redTeamB += ONE_POINT;
         displayRedCardsForTeamB(redTeamB);
         updateGameEvolution("Team B", RED_CARD, RED_COLOR_MAIN);
     }
@@ -356,23 +358,23 @@ public class MainActivity extends AppCompatActivity {
     public void resetConfirmed() {
         stopTimer();
 
-        scoreTeamA = 0;
-        scoreTeamB = 0;
+        scoreTeamA = DEFAULT_SCORE;
+        scoreTeamB = DEFAULT_SCORE;
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
 
-        foulTeamA = 0;
-        foulTeamB = 0;
+        foulTeamA = DEFAULT_SCORE;
+        foulTeamB = DEFAULT_SCORE;
         displayFoulsForTeamA(foulTeamA);
         displayFoulsForTeamB(foulTeamB);
 
-        yellowTeamA = 0;
-        yellowTeamB = 0;
+        yellowTeamA = DEFAULT_SCORE;
+        yellowTeamB = DEFAULT_SCORE;
         displayYellowCardsForTeamA(yellowTeamA);
         displayYellowCardsForTeamB(yellowTeamB);
 
-        redTeamA = 0;
-        redTeamB = 0;
+        redTeamA = DEFAULT_SCORE;
+        redTeamB = DEFAULT_SCORE;
         displayRedCardsForTeamA(redTeamA);
         displayRedCardsForTeamB(redTeamB);
 
